@@ -94,20 +94,8 @@ function extract_installer {
 }
 
 PIP_REQUIREMENTS="\
-certifi==2024.12.14
-chardet==5.2.0
-comtypes==1.4.8
-git+https://github.com/jaraco/pywin32-ctypes.git@f27d6a0
-idna==3.10
-mutagen==1.47.0
 mygpoclient==1.10
-podcastparser==0.6.10
-PySocks==1.7.1
-requests==2.32.3
-urllib3==2.2.2
-webencodings==0.5.1
-pillow==11.0.0
-filelock==3.16.1
+podcastparser==0.6.11
 yt-dlp
 "
 
@@ -118,7 +106,7 @@ function install_deps {
     # cache update step during package installation
     export MSYS2_FC_CACHE_SKIP=1
 
-    build_pacman --noconfirm -S \
+    build_pacman --noconfirm --needed -S \
         git \
         "${MINGW_PACKAGE_PREFIX}"-gdk-pixbuf2 \
         "${MINGW_PACKAGE_PREFIX}"-librsvg \
@@ -128,9 +116,21 @@ function install_deps {
         "${MINGW_PACKAGE_PREFIX}"-python-cairo \
         "${MINGW_PACKAGE_PREFIX}"-python-pip \
         "${MINGW_PACKAGE_PREFIX}"-python-six \
+        "${MINGW_PACKAGE_PREFIX}"-python-certifi \
+        "${MINGW_PACKAGE_PREFIX}"-python-chardet \
+        "${MINGW_PACKAGE_PREFIX}"-python-comtypes \
+        "${MINGW_PACKAGE_PREFIX}"-python-pywin32-ctypes \
+        "${MINGW_PACKAGE_PREFIX}"-python-idna \
+        "${MINGW_PACKAGE_PREFIX}"-python-mutagen \
+        "${MINGW_PACKAGE_PREFIX}"-python-pysocks \
+        "${MINGW_PACKAGE_PREFIX}"-python-requests \
+        "${MINGW_PACKAGE_PREFIX}"-python-urllib3 \
+        "${MINGW_PACKAGE_PREFIX}"-python-webencodings \
+        "${MINGW_PACKAGE_PREFIX}"-python-pillow \
+        "${MINGW_PACKAGE_PREFIX}"-python-filelock \
         "${MINGW_PACKAGE_PREFIX}"-make
 
-    build_pip install --no-deps --no-binary ":all:" --upgrade \
+    build_pip install --break-system-packages --no-deps --no-binary ":all:" --upgrade \
         --force-reinstall $(echo "$PIP_REQUIREMENTS" | tr "\\n" " ")
 
     # replace ca-certificates with certifi's
@@ -145,7 +145,7 @@ function install_deps {
     #    "${MINGW_PACKAGE_PREFIX}"-python-pip \
     #    || true
 
-    build_pacman --noconfirm -S \
+    build_pacman --noconfirm --needed -S \
         "${MINGW_PACKAGE_PREFIX}"-python-setuptools \
         "${MINGW_PACKAGE_PREFIX}"-python-build \
         "${MINGW_PACKAGE_PREFIX}"-python-installer
