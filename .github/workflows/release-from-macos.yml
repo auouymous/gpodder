@@ -13,7 +13,7 @@ jobs:
     env:
       BUNDLE_TAG: 24.8.5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0 # fetch tags
       - run: >
@@ -24,7 +24,7 @@ jobs:
              if [ "$saved_hash" != "$comp_hash" ]; then echo "E: $saved_hash != $comp_hash"; exit 1; else echo "valid hash"; fi;
              LC_CTYPE=C.UTF-8 LANG=C.UTF-8 tools/mac-osx/release_on_mac.sh "$(pwd)/pythonbase-$BUNDLE_TAG.zip" || exit 1;
              rm -Rf tools/mac-osx/_build/{gPodder.app,*.deps.zip*,gPodder.contents,run-*,gpo,gpodder-migrate2tres}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: release
           path: /Users/runner/work/gpodder/gpodder/tools/mac-osx/_build/
