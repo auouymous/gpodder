@@ -120,7 +120,7 @@ Section "Install"
 
     ; Use this to make things faster for testing installer changes
     ;~ SetOutPath "$INSTDIR\bin"
-    ;~ File /r "mingw32\bin\*.exe"
+    ;~ File /r "${ROOT}\bin\*.exe"
 
     SetOutPath "$INSTDIR"
     File /r "${ROOT}\*.*"
