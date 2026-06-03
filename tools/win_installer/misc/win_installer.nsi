@@ -18,6 +18,7 @@ Unicode true
 !define GPO_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${GPO_NAME}"
 !define GPO_INSTDIR_KEY "Software\${GPO_NAME}"
 !define GPO_INSTDIR_VALUENAME "InstDir"
+!define ROOT "ucrt64"
 
 !define MUI_CUSTOMFUNCTION_GUIINIT custom_gui_init
 !include "MUI2.nsh"
@@ -119,10 +120,10 @@ Section "Install"
 
     ; Use this to make things faster for testing installer changes
     ;~ SetOutPath "$INSTDIR\bin"
-    ;~ File /r "mingw32\bin\*.exe"
+    ;~ File /r "${ROOT}\bin\*.exe"
 
     SetOutPath "$INSTDIR"
-    File /r "mingw32\*.*"
+    File /r "${ROOT}\*.*"
 
     StrCpy $GPO_CMD_INST_BIN "$INSTDIR\bin\gpo.exe"
     StrCpy $GPO_INST_BIN "$INSTDIR\bin\gpodder.exe"

@@ -29,13 +29,13 @@ Setting Up the MSYS2 Environment
 
 * Download msys2 64-bit from https://msys2.github.io/
 * Follow instructions on https://msys2.github.io/
-* Execute ``C:\msys64\mingw64.exe``
+* Execute ``C:\msys64\ucrt64.exe``
 * Run ``pacman -S git`` to install git
 * Run ``git clone https://github.com/gpodder/gpodder.git``
 * Run ``cd gpodder/tools/win_installer`` to end up where this README exists.
 * Execute ``./bootstrap.sh`` to install all the needed dependencies.
 * Now go to the application source code ``cd ../..``
-* To run gPodder execute ``./bin/gpodder``
+* To run gPodder execute ``PYTHONPATH="./tools/fake-dbus-module/" ./bin/gpodder``
 
 If you want to use py.test directly you have to unset the MSYSTEM env var:
 ``MSYSTEM= py.test tests/test_util.py``
